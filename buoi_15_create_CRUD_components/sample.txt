@@ -1,0 +1,47 @@
+import logo from './logo.svg';
+import './App.css';
+import { Component } from 'react';
+
+
+// Const & let
+ let name = 'jone';
+ name = 'hello' // work
+
+ const unique = 'modal';
+ const nums = [1, 2, 3, 4, 5];
+ nums.push(6);
+// Arraow function
+
+//ForEach
+
+// Map
+
+// filter
+
+// spread
+
+// destructuring
+
+// classes
+
+// subclass
+
+class App extends Component {
+  c = 'sssssssssssss'
+
+  render(){
+    let c5 = 5;
+    let c6 = '6';
+    return (
+      <div>
+        {
+          nums.map((x, i) => <h2>{x} {i}</h2>)
+        }
+        <h3>{c5 + c6}</h3>
+      </div>
+    )
+  };
+  
+}
+
+export default App;

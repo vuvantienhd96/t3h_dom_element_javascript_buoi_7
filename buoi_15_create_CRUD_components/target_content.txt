@@ -1,0 +1,3 @@
++ 15p ôn lại kiến thức js
++ component CRUD (create, replace, update, delete)
++ propType (check kiểu prop) 
