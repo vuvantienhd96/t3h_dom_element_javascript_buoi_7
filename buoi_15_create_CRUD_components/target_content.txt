@@ -1,3 +1,10 @@
-+ 15p ôn lại kiến thức js
-+ component CRUD (create, replace, update, delete)
-+ propType (check kiểu prop) 
+*) buổi 15
++ 15p ôn lại kiến thức js (done)
++ component CRUD (create, replace, update, delete) (done delete)
++ propType (check kiểu prop)  (done)
+
+*) buổi 16
++ state, props  (done)
++ callBack (done)
++ contextApi
+

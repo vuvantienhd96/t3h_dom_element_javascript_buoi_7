@@ -28,15 +28,34 @@ export default class Contacts extends Component {
             ]
         }
     }
+
+    // deleteContact được gọi và được bind một cái id với phương thức bind của javascript
+    deleteContact = (id) => {
+        // lấy được ra parammater id
+
+        // lấy ra giá trị state ban đầu
+        const { contacts } = this.state;
+
+        // lọc và tạo ra mảng newContacts mới với các id khác id mình click vô element
+        const newContacts = contacts.filter(contact => contact.id !== id); // trả về một mảng mới không chứa id click
+
+        // set lai state của component contacts
+        this.setState({
+            contacts: newContacts 
+        });
+
+    }
+
+    // khi data được update nó sẽ fill lại và render ra data mới
     render() {
         const { contacts } = this.state;
         return (
             <div>
                 {contacts.map(contact => <Contact 
                                             key={contact.id}
-                                            name={contact.name} 
-                                            email={contact.email} 
-                                            phone={contact.phone}
+                                            contact={contact}
+                                            // props deleteClickHandler được khai báo ở đây
+                                            deleteClickHandler={this.deleteContact.bind(this, contact.id)}
                                         /> )}
             </div>
         )
