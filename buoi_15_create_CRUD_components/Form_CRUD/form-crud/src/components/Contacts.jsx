@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Contact from './Contact';
 
+// controler component là gì
 export default class Contacts extends Component {
     constructor(){
         super();

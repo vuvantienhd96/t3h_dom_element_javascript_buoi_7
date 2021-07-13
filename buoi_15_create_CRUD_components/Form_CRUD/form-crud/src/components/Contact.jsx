@@ -19,6 +19,7 @@ export default class Contact extends Component {
         // gọi lại props.deleteClickHandler từ thằng cha và kêu gọi thực thi nó
         this.props.deleteClickHandler();
     }
+    
 
     render() {
         const { name, email, phone, id} = this.props.contact;
