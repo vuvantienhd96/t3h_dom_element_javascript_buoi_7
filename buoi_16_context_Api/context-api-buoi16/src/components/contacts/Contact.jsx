@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import './contact.scss';
 
-import { Consumer } from '../context';
+import { Consumer } from '../../context';
+import { DELETE_CONTACT } from '../../context'
 
 // uncontroler component là gì
 export default class Contact extends Component {
@@ -16,7 +17,7 @@ export default class Contact extends Component {
     }
 
     onDeleClick = (id, dispatch) => {
-        dispatch({type: 'DELETE_CONTACT', payload: id});
+        dispatch({type: DELETE_CONTACT, payload: id});
     }
 
     render() {

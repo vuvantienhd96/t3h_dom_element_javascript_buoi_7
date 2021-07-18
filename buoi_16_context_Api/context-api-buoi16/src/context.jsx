@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 
 const Context = React.createContext();
 
+
+export const ADD_CONTACT = 'ADD_CONTACT';
+export const DELETE_CONTACT = 'DELETE_CONTACT';
+
+
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'DELETE_CONTACT':
+        case DELETE_CONTACT:
             return {
                 ...state,
                 contacts: state.contacts.filter(
                     contact => contact.id !== action.payload
                 )
             }
-        case 'UPDATE_CONTACT':
+        case ADD_CONTACT:
             return {
-                ...state
+                ...state,
+                contacts: [
+                    action.payload,
+                    ...state.contacts
+                ]
             }
         default:
             return state;
