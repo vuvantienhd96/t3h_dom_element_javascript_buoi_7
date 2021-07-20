@@ -5,6 +5,7 @@ const Context = React.createContext();
 
 export const ADD_CONTACT = 'ADD_CONTACT';
 export const DELETE_CONTACT = 'DELETE_CONTACT';
+export const GET_DETAIL_ID = 'GET_DETAIL_ID';
 
 
 const reducer = (state, action) => {
@@ -23,6 +24,11 @@ const reducer = (state, action) => {
                     action.payload,
                     ...state.contacts
                 ]
+            }
+        case GET_DETAIL_ID: 
+            return {
+                ...state,
+                ...state.contacts
             }
         default:
             return state;

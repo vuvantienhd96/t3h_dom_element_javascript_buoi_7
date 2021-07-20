@@ -4,6 +4,9 @@ import { Consumer, ADD_CONTACT } from './../../context';
 import TextInputGroup from './../layout/TextInputGroup'
 
 
+const REGEX_VALIDATE_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const REGEX_VALIDATE_PHONE = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/;
+
 // controlerComponent
 export default class AddContact extends Component {
 
@@ -20,7 +23,36 @@ export default class AddContact extends Component {
     // onNameChange = (e) => this.setState({ name: e.target.value });
     // onEmailChange = (e) => this.setState({ email: e.target.value });
     // onPhoneChange = (e) => this.setState({ phone: e.target.value });
-    onChange = e => this.setState({ [ e.target.name ] : e.target.value });
+    onChange = e => {
+
+        const { name, email, phone } = this.state;
+        this.setState({ [ e.target.name ] : e.target.value });
+        // check for Errors
+        // if(name === '') {
+        //     this.setState({errors: { name: 'Name is required' }})
+        //     return;
+        // }
+        // if(email === '') {
+        //     this.setState({errors: { email: 'email is required' }})
+        //     return;
+        // }
+
+        // if(!REGEX_VALIDATE_EMAIL.test(String(email).toLowerCase())){
+        //     this.setState({errors: { email: 'email not match' }})
+        //     return;
+        // }
+        // if(phone === '') {
+        //     this.setState({errors: { phone: 'phone is required' }})
+        //     return;
+        // }
+        // if(!REGEX_VALIDATE_PHONE.test(phone)){
+        //     this.setState({errors: { phone: 'phone is not match' }})
+        //     return;
+        // }
+
+        
+    };
+
     onSubmit = (dispatch, e) => {
         // ngăn chặn sự click user
         e.preventDefault();
@@ -36,8 +68,17 @@ export default class AddContact extends Component {
             this.setState({errors: { email: 'email is required' }})
             return;
         }
+
+        if(!REGEX_VALIDATE_EMAIL.test(String(email).toLowerCase())){
+            this.setState({errors: { email: 'email not match' }})
+            return;
+        }
         if(phone === '') {
             this.setState({errors: { phone: 'phone is required' }})
+            return;
+        }
+        if(!REGEX_VALIDATE_PHONE.test(phone)){
+            this.setState({errors: { phone: 'phone is not match' }})
             return;
         }
 
@@ -62,6 +103,9 @@ export default class AddContact extends Component {
             phone: '',
             errors: {}
         })
+
+        // diều hướng user về trang chủ
+        this.props.history.push('/');
     }
 
     render() {

@@ -5,6 +5,9 @@ import './contact.scss';
 import { Consumer } from '../../context';
 import { DELETE_CONTACT } from '../../context'
 
+// Router
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+
 // uncontroler component là gì
 export default class Contact extends Component {
     
@@ -45,6 +48,7 @@ export default class Contact extends Component {
                                 <ul className="list-group">
                                     <li className="list-group-item">Email: {email}</li>
                                     <li className="list-group-item">Number: {phone}</li>
+                                    <li className="list-group-item"><Link to={`/detail/${id}`} className="nav-link">Click me !</Link></li>
                                 </ul>
                             }
                         </div>

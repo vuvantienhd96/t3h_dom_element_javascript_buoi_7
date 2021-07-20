@@ -1,0 +1,16 @@
+mảng [
+	{ name: a, id: 1},
+	{ name: b, id: 2},
+	{ name: c, id: 3},
+]
+
+// action xóa: filter
+// thêm mới 
+			b1: tạo ra một object mới từ form
+				{ name: d, id: uuid() }
+			b2: thêm vào mảng ban đầu
+// sửa
+			b1: lấy được cái mảng và lấy được được id
+			b2: lấy được object bên trong mảng
+			b3: thực hiện sửa hoặc update name mới
+			
