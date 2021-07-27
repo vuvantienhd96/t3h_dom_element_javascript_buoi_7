@@ -5,6 +5,9 @@ import './contact.scss';
 import { Consumer } from '../../context';
 import { DELETE_CONTACT } from '../../context'
 
+// import axios
+import axios from 'axios'
+
 // Router
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
@@ -12,49 +15,71 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 export default class Contact extends Component {
     
     state ={
-        showInfoItem: false
+        showInfoItem: false,
+        loadingInternal: false
     }
 
     onShowClick(id, e) {
         this.setState({ showInfoItem: !this.state.showInfoItem });
     }
 
-    onDeleClick = (id, dispatch) => {
-        dispatch({type: DELETE_CONTACT, payload: id});
+    onDeleClick = (id, dispatch, loading) => {
+        console.log('id', id);
+        this.setState({loadingInternal: true})
+        axios.delete
+        (`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then(res => {
+            this.setState({loadingInternal: false})
+            dispatch({type: DELETE_CONTACT, payload: {id: id, loadingInternal: false}})
+        })
+        //
     }
 
     render() {
         const { name, email, phone, id} = this.props.contact;
-        const { showInfoItem } = this.state;
+        const { showInfoItem, loadingInternal } = this.state;
         return (
+            <React.Fragment>
             <Consumer>
                 {value => {
-                    const { dispatch } = value;
+                    const { dispatch, loading } = value;
                     return (
-                        <div className="container-card card card-body mb-3">
-                            <h4>
-                                {name}
-                                <i onClick={this.onShowClick.bind(this, id)} 
-                                            className="pl-2 pb-2 fas fa-sort-down custum-icon_sort"
-                                />
-                                <i onClick={() => this.setState({ showInfoItem: !this.state.showInfoItem })} 
-                                            className="pl-2 pb-2 fas fa-plus custum-icon_plus"
-                                />
+                        <React.Fragment>
+                        {
+                            loadingInternal && <div className="loader">loading</div>
+                        }
 
-                                <i onClick={this.onDeleClick.bind(this, id, dispatch)} className="fas fa-times custum-icon_times" />
-                            </h4>
-                            {
-                                showInfoItem && 
-                                <ul className="list-group">
-                                    <li className="list-group-item">Email: {email}</li>
-                                    <li className="list-group-item">Number: {phone}</li>
-                                    <li className="list-group-item"><Link to={`/detail/${id}`} className="nav-link">Click me !</Link></li>
-                                </ul>
-                            }
-                        </div>
+                        {
+                           
+                           
+                           !loadingInternal && (<div className="container-card card card-body mb-3">
+                            
+                                <h4>
+                                    {name}
+                                    <i onClick={this.onShowClick.bind(this, id)} 
+                                                className="pl-2 pb-2 fas fa-sort-down custum-icon_sort"
+                                    />
+                                    <i onClick={() => this.setState({ showInfoItem: !this.state.showInfoItem })} 
+                                                className="pl-2 pb-2 fas fa-plus custum-icon_plus"
+                                    />
+
+                                    <i onClick={this.onDeleClick.bind(this, id, dispatch, loading)} className="fas fa-times custum-icon_times" />
+                                </h4>
+                                {
+                                    showInfoItem && 
+                                    <ul className="list-group">
+                                        <li className="list-group-item">Email: {email}</li>
+                                        <li className="list-group-item">Number: {phone}</li>
+                                        <li className="list-group-item"><Link to={`/detail/${id}`} className="nav-link">Click me !</Link></li>
+                                    </ul>
+                                }
+                            </div>)
+                        }
+                        </React.Fragment>
                     )
                 }}
             </Consumer>
+            </React.Fragment>
             
         )
     }

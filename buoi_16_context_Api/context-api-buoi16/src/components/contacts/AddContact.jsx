@@ -25,7 +25,7 @@ export default class AddContact extends Component {
     // onPhoneChange = (e) => this.setState({ phone: e.target.value });
     onChange = e => {
 
-        const { name, email, phone } = this.state;
+        // const { name, email, phone } = this.state;
         this.setState({ [ e.target.name ] : e.target.value });
         // check for Errors
         // if(name === '') {

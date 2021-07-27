@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 // components
 import Contacts from './components/contacts/Contacts';
 import Header from './components/layout/Header';
 import AddContact from './components/contacts/AddContact'
-import AddContact2 from './components/contacts/AddContact2'
+// import AddContact2 from './components/contacts/AddContact2'
 import About from './components/pages/About'
 import NotFoundPage from './components/pages/NotFoundPage'
 import DetailContact from './components/pages/DetailContact'
@@ -16,6 +16,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Provider } from './context';
+import Test from './components/Test/Test';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route exact path="/about" component={About}/>
                 <Route exact path="/addcontact" component={AddContact}/>
                 <Route exact path="/detail/:id" component={DetailContact}/>
+                <Route exact path="/test" component={Test}/>
                 <Route component={NotFoundPage}/>
               </Switch>
             </div>

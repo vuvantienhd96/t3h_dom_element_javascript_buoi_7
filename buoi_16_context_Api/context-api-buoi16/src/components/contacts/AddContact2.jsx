@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react'
 
 // uncontrolled Components & refs
 export default class AddContact2 extends Component {
