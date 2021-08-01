@@ -10,7 +10,6 @@ const DetailContact = (props) => {
                     const { contacts } = value;
                     // láy ra được phần tử mình đã clicked
                     let newDetailContact = contacts.filter(el => el.id == props.match.params.id);
-                    debugger
                     return (
                         // hiển hị ra object đó 
                         newDetailContact.map(el => (
