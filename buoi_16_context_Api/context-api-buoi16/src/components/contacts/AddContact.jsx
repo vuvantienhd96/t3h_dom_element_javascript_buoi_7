@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { Consumer, ADD_CONTACT } from './../../context';
 import TextInputGroup from './../layout/TextInputGroup'
 
+//import axios
+import axios from 'axios';
+
 
 const REGEX_VALIDATE_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const REGEX_VALIDATE_PHONE = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/;
@@ -53,7 +56,7 @@ export default class AddContact extends Component {
         
     };
 
-    onSubmit = (dispatch, e) => {
+    onSubmit = async (dispatch, e) => {
         // ngăn chặn sự click user
         e.preventDefault();
         // get state đã được onchange
@@ -83,29 +86,41 @@ export default class AddContact extends Component {
         }
 
         const newContact = {
-            id: uuidv4(),
+            //  xóa đi bởi vì khi post lên server sẽ tư sinh ra id mới
+            // id: uuidv4(),
             name,
             email,
             phone
         }
+
+        try {
+            let res = await axios.post
+            ('https://jsonplaceholder.typicode.com/users', newContact)
+            dispatch({ type: ADD_CONTACT, payload: res.data })
+            // .then(res => dispatch({ type: ADD_CONTACT, payload: res.data }))
+            // clear value has been pass into input
+            this.setState({
+                name: '',
+                email: '',
+                phone: '',
+                errors: {}
+            })
+
+            this.props.history.push('/');
+        } catch (error) {
+            throw new Error("you get error" + error);
+        }
+
         // cachs viết ở trên giống với việc viết như ở dưới
         // const newContact = {
         //     name : name,
         //     email: email,
         //     phone: phone
         // }
-        dispatch({type: ADD_CONTACT, payload: newContact });
-
-        // clear value has been pass into input
-        this.setState({
-            name: '',
-            email: '',
-            phone: '',
-            errors: {}
-        })
+        // dispatch({type: ADD_CONTACT, payload: newContact });
 
         // diều hướng user về trang chủ
-        this.props.history.push('/');
+        
     }
 
     render() {

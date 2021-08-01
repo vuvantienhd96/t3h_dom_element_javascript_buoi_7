@@ -49,13 +49,15 @@ export class Provider extends Component {
         loading: false
     };
 
-    componentDidMount(){
+    async componentDidMount(){
         this.setState({loading: true})
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res => {
-            this.setState({loading: false})
-            this.setState({ contacts: res.data });
-        })
+        let res = await axios.get('https://jsonplaceholder.typicode.com/users')
+        this.setState({loading: false});
+        this.setState({contacts: res.data})
+        // .then(res => {
+        //     this.setState({loading: false})
+        //     this.setState({ contacts: res.data });
+        // })
     }
 
     render() {

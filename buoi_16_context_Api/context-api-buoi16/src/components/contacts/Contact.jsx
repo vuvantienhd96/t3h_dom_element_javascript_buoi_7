@@ -23,16 +23,19 @@ export default class Contact extends Component {
         this.setState({ showInfoItem: !this.state.showInfoItem });
     }
 
-    onDeleClick = (id, dispatch, loading) => {
+    onDeleClick = async (id, dispatch, loading) => {
+        // do something
+
         console.log('id', id);
         this.setState({loadingInternal: true})
-        axios.delete
-        (`https://jsonplaceholder.typicode.com/users/${id}`)
-        .then(res => {
-            this.setState({loadingInternal: false})
-            dispatch({type: DELETE_CONTACT, payload: {id: id, loadingInternal: false}})
-        })
-        //
+        await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+        this.setState({ loadingInternal: false })
+        dispatch({ type: DELETE_CONTACT, payload: {id: id, loadingInternal: false}})
+        // .then(res => {
+        //     this.setState({loadingInternal: false})
+        //     dispatch({type: DELETE_CONTACT, payload: {id: id, loadingInternal: false}})
+        // })
+        
     }
 
     render() {
