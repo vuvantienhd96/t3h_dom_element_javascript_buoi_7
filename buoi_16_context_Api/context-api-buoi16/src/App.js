@@ -8,15 +8,16 @@ import AddContact from './components/contacts/AddContact'
 import About from './components/pages/About'
 import NotFoundPage from './components/pages/NotFoundPage'
 import DetailContact from './components/pages/DetailContact'
+import Test from './components/Test/Test';
+import Album from './components/pages/Album';
 
 // css
 import './App.css';
 
 // Router
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import { Provider } from './context';
-import Test from './components/Test/Test';
+
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/addcontact" component={AddContact}/>
                 <Route exact path="/detail/:id" component={DetailContact}/>
                 <Route exact path="/test" component={Test}/>
+                <Route exact path="/albums" component={Album}/>
                 <Route component={NotFoundPage}/>
               </Switch>
             </div>

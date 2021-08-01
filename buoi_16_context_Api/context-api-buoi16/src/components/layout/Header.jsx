@@ -40,6 +40,12 @@ export default class Header extends Component {
                                     About
                                     </Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link to="/albums" className="nav-link">
+                                    <i className="fas fa-question"></i>
+                                    Album
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
 
