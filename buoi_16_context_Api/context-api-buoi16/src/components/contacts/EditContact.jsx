@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
-import { Consumer, ADD_CONTACT } from './../../context';
+import { Consumer, ADD_CONTACT, UPDATE_CONTACT } from './../../context';
 import TextInputGroup from './../layout/TextInputGroup'
 
 //import axios
@@ -11,7 +11,7 @@ const REGEX_VALIDATE_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*
 const REGEX_VALIDATE_PHONE = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/;
 
 // controlerComponent
-export default class AddContact extends Component {
+export default class EditContact extends Component {
 
     constructor(props){
         super(props);
@@ -23,37 +23,8 @@ export default class AddContact extends Component {
         }
     }
     
-    // onNameChange = (e) => this.setState({ name: e.target.value });
-    // onEmailChange = (e) => this.setState({ email: e.target.value });
-    // onPhoneChange = (e) => this.setState({ phone: e.target.value });
     onChange = e => {
-
-        // const { name, email, phone } = this.state;
         this.setState({ [ e.target.name ] : e.target.value });
-        // check for Errors
-        // if(name === '') {
-        //     this.setState({errors: { name: 'Name is required' }})
-        //     return;
-        // }
-        // if(email === '') {
-        //     this.setState({errors: { email: 'email is required' }})
-        //     return;
-        // }
-
-        // if(!REGEX_VALIDATE_EMAIL.test(String(email).toLowerCase())){
-        //     this.setState({errors: { email: 'email not match' }})
-        //     return;
-        // }
-        // if(phone === '') {
-        //     this.setState({errors: { phone: 'phone is required' }})
-        //     return;
-        // }
-        // if(!REGEX_VALIDATE_PHONE.test(phone)){
-        //     this.setState({errors: { phone: 'phone is not match' }})
-        //     return;
-        // }
-
-        
     };
 
     onSubmit = async (dispatch, e) => {
@@ -85,42 +56,49 @@ export default class AddContact extends Component {
             return;
         }
 
-        const newContact = {
-            //  xóa đi bởi vì khi post lên server sẽ tư sinh ra id mới
-            // id: uuidv4(),
+        const upContact = {
             name,
             email,
             phone
         }
-
+        // get id parameter on url
+        const { id } = this.props.match.params;
         try {
-            let res = await axios.post
-            ('https://jsonplaceholder.typicode.com/users', newContact)
-            dispatch({ type: ADD_CONTACT, payload: res.data })
-            // .then(res => dispatch({ type: ADD_CONTACT, payload: res.data }))
-            // clear value has been pass into input
+            let res = await axios.put
+            (`https://jsonplaceholder.typicode.com/users/${id}`, upContact)
+
+            dispatch({ type: UPDATE_CONTACT, payload: res.data })
             this.setState({
                 name: '',
                 email: '',
                 phone: '',
                 errors: {}
             })
-
+            
             this.props.history.push('/');
         } catch (error) {
             throw new Error("you get error" + error);
         }
+    }
 
-        // cachs viết ở trên giống với việc viết như ở dưới
-        // const newContact = {
-        //     name : name,
-        //     email: email,
-        //     phone: phone
-        // }
-        // dispatch({type: ADD_CONTACT, payload: newContact });
+    async componentDidMount(){
+        // get id parameter on url
+        const { id } = this.props.match.params;
+        // call function getData from BE 
+        const res = await axios.get(
+            `https://jsonplaceholder.typicode.com/users/${id}`
+        )
 
-        // diều hướng user về trang chủ
+        console.log('$resEdit', res);
+        // setState for userContact
+        const contact = res.data;
+        this.setState({
+            name: contact.name,
+            email: contact.email,
+            phone: contact.phone
+        })
         
+
     }
 
     render() {
@@ -131,7 +109,7 @@ export default class AddContact extends Component {
                     const { dispatch } = value;
                     return (
                     <div className="card mb-3">
-                        <div className="card-header" style={{fontSize: '1.5rem'}}>Add Contact</div>
+                        <div className="card-header" style={{fontSize: '1.5rem'}}>Edit Contact</div>
                         <div className="card-body">
                             <form onSubmit={ this.onSubmit.bind(this, dispatch) } >
                                 <TextInputGroup 

@@ -11,6 +11,9 @@ import axios from 'axios'
 // Router
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
+//icon antd
+import { EditOutlined }  from '@ant-design/icons';
+
 // uncontroler component là gì
 export default class Contact extends Component {
     
@@ -22,6 +25,9 @@ export default class Contact extends Component {
     onShowClick(id, e) {
         this.setState({ showInfoItem: !this.state.showInfoItem });
     }
+
+    
+
 
     onDeleClick = async (id, dispatch, loading) => {
         // do something
@@ -67,6 +73,7 @@ export default class Contact extends Component {
                                     />
 
                                     <i onClick={this.onDeleClick.bind(this, id, dispatch, loading)} className="fas fa-times custum-icon_times" />
+                                    <Link to={`/editcontact/${id}`} className="nav-link"><EditOutlined /></Link>
                                 </h4>
                                 {
                                     showInfoItem && 

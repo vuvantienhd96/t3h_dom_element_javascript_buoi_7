@@ -9,6 +9,7 @@ const Context = React.createContext();
 export const ADD_CONTACT = 'ADD_CONTACT';
 export const DELETE_CONTACT = 'DELETE_CONTACT';
 export const GET_DETAIL_ID = 'GET_DETAIL_ID';
+export const UPDATE_CONTACT = 'UPDATE_CONTACT';
 
 
 
@@ -34,6 +35,13 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 ...state.contacts
+            }
+        case UPDATE_CONTACT:
+            return {
+                ...state,
+                contacts: state.contacts.map(contact =>
+                    contact.id === action.payload.id ? (contact = action.payload) : contact
+                    )
             }
         default:
             return state;

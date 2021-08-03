@@ -4,6 +4,7 @@ import React from 'react'
 import Contacts from './components/contacts/Contacts';
 import Header from './components/layout/Header';
 import AddContact from './components/contacts/AddContact'
+import EditContact from './components/contacts/EditContact'
 // import AddContact2 from './components/contacts/AddContact2'
 import About from './components/pages/About'
 import NotFoundPage from './components/pages/NotFoundPage'
@@ -33,6 +34,7 @@ function App() {
                 <Route exact path="/" component={Contacts}/>
                 <Route exact path="/about" component={About}/>
                 <Route exact path="/addcontact" component={AddContact}/>
+                <Route exact path="/editcontact/:id" component={EditContact}/>
                 <Route exact path="/detail/:id" component={DetailContact}/>
                 <Route exact path="/test" component={Test}/>
                 <Route exact path="/albums" component={Album}/>
